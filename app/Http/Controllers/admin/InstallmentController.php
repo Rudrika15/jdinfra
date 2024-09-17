@@ -161,7 +161,7 @@ class InstallmentController extends Controller
     public function update(Request $request, $id)
     {
         $installment = Installment::find($id);
-
+        $total_paid_amt = $installment->total_paid_amt + $request->paid_amount;
         $request->validate([
             'booking_id' => 'required',
             'user_id' => 'required',
@@ -175,7 +175,7 @@ class InstallmentController extends Controller
             'remarks' => 'required',
         ]);
         $paid_amt = $installment->paid_amount;
-        $installment->update($request->all());
+        $installment->update($request->all() + ['total_paid_amt' => $total_paid_amt]);
 
         // Calculate remain amount
         $remainAmount = $installment->remain_amount - $request->paid_amount;
@@ -195,6 +195,7 @@ class InstallmentController extends Controller
             'user_id' => $installment->user_id,
             'trans_date' => $nextMonthFifthDay,
             'paid_amount' => 0,
+            'total_paid_amt' => $total_paid_amt,
             'remain_amount' => $remainAmount,
             'emi' => $installment->emi - 1,
             'new_emi_amount' => $newInstallment,

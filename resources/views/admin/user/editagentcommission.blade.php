@@ -8,8 +8,8 @@
             </div>
             <div class="col-lg-6 d-flex justify-content-end align-items-center">
                 <span style="float:right"><a
-                        href="{{ route('agentcommission', $installments->booking->plot->sector->projectid) }}" class="btn"
-                        style="background-color: #e3f2fd">Back</a></span>
+                        href="{{ route('agentcommission', $agentcommissions->installment->booking->plot->sector->projectid) }}"
+                        class="btn" style="background-color: #e3f2fd">Back</a></span>
             </div>
         </div>
         <div class="container-fluid p-5">
@@ -18,10 +18,10 @@
                 @method('put')
                 <div class="row">
                     <div class="col">
-                        <input type="hidden" name="installment_id" value="{{ $installments->id }}">
+                        <input type="hidden" name="installment_id" value="{{ $agentcommissions->installment->id }}">
                         <label for="agent_commission"> Pending Commission </label>
-                        @if ($installments->agentcommission->isNotEmpty())
-                            @foreach ($installments->agentcommission->take(1) as $installment)
+                        {{-- @if ($agentcommissions->isNotEmpty())
+                            @foreach ($agentcommissions->take(1) as $installment)
                                 <input type="text" class="form-control" value="{{ $installment->agent_commission }}"
                                     name="agent_commission" id="agent_commission" readonly>
                                 <span class="text-danger">
@@ -39,7 +39,14 @@
                                     {{ $message }}
                                 @enderror
                             </span>
-                        @endif
+                        @endif --}}
+                        <input type="text" class="form-control" value="{{ $agentcommissions->agent_commission }}"
+                            name="agent_commission" id="agent_commission" readonly>
+                        <span class="text-danger">
+                            @error('agent_commission')
+                                {{ $message }}
+                            @enderror
+                        </span>
 
 
 

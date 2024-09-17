@@ -30,7 +30,7 @@
                         <td>{{ $item->plotnumber }}</td>
                         <td>{{ $item->area }}</td>
                         <td> <span
-                                class="{{ $item->status == 'Sold' ? 'btn btn-outline-success' : ($item->status == 'Hold' ? 'btn btn-outline-danger' : 'btn btn-outline-info') }}">
+                                class="{{ $item->status == 'Sold' ? 'btn btn-outline-success' : ($item->status == 'Hold' ? 'btn btn-outline-warning' : 'btn btn-outline-danger') }}">
                                 {{ $item->status }} </span> </td>
 
                         {{--  @foreach ($projects as $project)

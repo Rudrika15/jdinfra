@@ -336,7 +336,7 @@ class UserController extends Controller
         $agentcommissions = Agentcommission::whereHas('installment.booking.plot.sector.project', function ($query) use ($id) {
             $query->where('id', $id);
         })->with('installment.booking.plot.sector.project')
-            ->where('paid_agentcommission', '0')->get(); // or use first() if you're expecting only one booking
+            ->where('agent_commission', '!=', '0')->get(); // or use first() if you're expecting only one booking
 
         return view('admin.user.agentcomission', compact('agentcommissions'));
     }
@@ -344,8 +344,7 @@ class UserController extends Controller
 
     public function editagentcommission($id)
     {
-        $installments = Installment::find($id);
         $agentcommissions = Agentcommission::find($id);
-        return \view('admin.user.editagentcommission', \compact('installments', 'agentcommissions'));
+        return \view('admin.user.editagentcommission', \compact('agentcommissions'));
     }
 }

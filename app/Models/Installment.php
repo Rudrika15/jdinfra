@@ -15,6 +15,7 @@ class Installment extends Model
         'user_id',
         'trans_date',
         'paid_amount',
+        'total_paid_amt',
         'remain_amount',
         'new_emi_amount',
         'emi',

@@ -82,57 +82,57 @@
 
                 <tbody>
 
-                    <tr>
-                        @foreach ($installments as $item)
-                    <tr class="text-nowrap">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>Sector {{ $item->booking->plot->sector->sectorname }}</td>
-                        <td>Plot {{ $item->booking->plot->plotnumber }}</td>
-                        <td>{{ $item->booking->fullname }}</td>
-                        @if (Auth::user()->usertype == 'agent')
-                            <td>{{ $item->user->name }}</td>
-                        @endif
-                        <td>{{ $item->trans_date }}</td>
-                        <td>{{ $item->booking->sell_amount }}</td>
-                        <td>{{ $item->booking->booking_amount }}</td>
-                        <td>{{ $item->paid_amount + $item->booking->booking_amount }}</td>
-                        <td>{{ $item->remain_amount }}</td>
-                        <td>{{ $item->new_emi_amount }}</td>
-                        <td>{{ $item->emi }}</td>
-                        @if ($item->status == 'Paid')
-                            <td>{{ $item->installment_no }}</td>
-                        @else
-                            <td>{{ $item->installment_no + 1 }}</td>
-                        @endif
-                        <td>{{ $item->status }}</td>
+                    {{-- <tr> --}}
+                    @foreach ($installments as $item)
+                        <tr class="text-nowrap">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>Sector {{ $item->booking->plot->sector->sectorname }}</td>
+                            <td>Plot {{ $item->booking->plot->plotnumber }}</td>
+                            <td>{{ $item->booking->fullname }}</td>
+                            @if (Auth::user()->usertype == 'agent')
+                                <td>{{ $item->user->name }}</td>
+                            @endif
+                            <td>{{ $item->trans_date }}</td>
+                            <td>{{ $item->booking->sell_amount }}</td>
+                            <td>{{ $item->booking->booking_amount }}</td>
+                            <td>{{ $item->total_paid_amt }}</td>
+                            <td>{{ $item->remain_amount }}</td>
+                            <td>{{ $item->new_emi_amount }}</td>
+                            <td>{{ $item->emi }}</td>
+                            @if ($item->status == 'Paid')
+                                <td>{{ $item->installment_no }}</td>
+                            @else
+                                <td>{{ $item->installment_no + 1 }}</td>
+                            @endif
+                            <td>{{ $item->status }}</td>
 
-                        <td>
-                            <div class="d-flex gap-2 justify-content-end">
-                                @if ($item->status == 'Unpaid')
+                            <td>
+                                <div class="d-flex gap-2 justify-content-end">
+                                    @if ($item->status == 'Unpaid')
+                                        <div>
+                                            <a href="{{ route('installment.edit', $item->id) }}"
+                                                class="btn btn-success shadow-none btn-sm text-nowrap">Pay Now</a>
+                                        </div>
+                                    @endif
                                     <div>
-                                        <a href="{{ route('installment.edit', $item->id) }}"
-                                            class="btn btn-success shadow-none btn-sm text-nowrap">Pay Now</a>
+                                        <a href="{{ route('installment.viewmore', $item->booking->id) }}"
+                                            class="btn btn-warning shadow-none btn-sm text-nowrap">View More</a>
                                     </div>
-                                @endif
-                                <div>
-                                    <a href="{{ route('installment.viewmore', $item->booking->id) }}"
-                                        class="btn btn-warning shadow-none btn-sm text-nowrap">View More</a>
+                                    @if (Auth::user()->usertype == 'admin')
+                                        <div>
+                                            <a onclick="return confirm('do you want to delete it?')"
+                                                class="btn btn-danger shadow-none btn-sm"
+                                                href="{{ route('installment.delete', $item->id) }}">Delete</a>
+                                        </div>
+                                    @endif
                                 </div>
-                                @if (Auth::user()->usertype == 'admin')
-                                    <div>
-                                        <a onclick="return confirm('do you want to delete it?')"
-                                            class="btn btn-danger shadow-none btn-sm"
-                                            href="{{ route('installment.delete', $item->id) }}">Delete</a>
-                                    </div>
-                                @endif
-                            </div>
-                        </td>
-                    </tr>
-        @endforeach
-        </tr>
-        </tbody>
+                            </td>
+                        </tr>
+                    @endforeach
+                    {{-- </tr> --}}
+                </tbody>
 
-        </table>
+            </table>
         @endif
     </div>
 @endsection

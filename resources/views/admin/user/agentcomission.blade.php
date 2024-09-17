@@ -35,6 +35,7 @@
                         <th>Agent Name</th>
                         <th>Agent Code</th>
                         <th>Agent Mobile</th>
+                        <th>Project Name</th>
                         <th>Sector Name</th>
                         <th>Plot Number</th>
                         <th>Installment No</th>
@@ -62,6 +63,7 @@
                                 <td>{{ $installment->user->name }}</td>
                                 <td>{{ $installment->user->agentcode }}</td>
                                 <td>{{ $installment->user->mobile }}</td>
+                                <td>{{ $project->title }}</td>
                                 <td>Sector {{ $sector->sectorname }}</td>
                                 <td>Plot {{ $plot->plotnumber }}</td>
                                 <td>{{ $installment->installment_no }}</td>

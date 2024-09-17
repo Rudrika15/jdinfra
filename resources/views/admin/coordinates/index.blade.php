@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container-fluid  p-0 m-0">
+
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col d-flex justify-content-end align-items-center">
-                @if (Auth::user()->type == 'Admin')
+                @if (Auth::user()->usertype == 'admin')
                     <a href="{{ route('coordinate.create', request()->route('projectid')) }}" class="btn me-2"
                         style="background-color: #e3f2fd">Add New
                         Coordinate</a>

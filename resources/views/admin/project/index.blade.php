@@ -11,12 +11,12 @@
             <div class="col-lg-9">
                 <h2>Project</h2>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 d-flex justify-content-center">
                 @if (Auth::user()->usertype == 'admin')
                     <span>
                         <a href="{{ route('project.create') }}" class="btn btn-primary shadow-none ">Add
                             new</a>
-                        <a href="{{ route('project.trash') }}" class="btn btn-primary shadow-none">Go To Trash </a></span>
+                        {{-- <a href="{{ route('project.trash') }}" class="btn btn-primary shadow-none">Go To Trash </a></span> --}}
                 @endif
             </div>
         </div>
@@ -37,9 +37,9 @@
                                 @if (Auth::user()->usertype == 'admin')
                                     <a class="btn btn-primary shadow-none"
                                         href="{{ route('project.edit', $item->id) }}">Edit</a>
-                                    <a onclick="return confirm('do you want to delete it?')"
+                                    {{-- <a onclick="return confirm('do you want to delete it?')"
                                         class="btn btn-danger "shadow-none
-                                        href="{{ route('project.delete', $item->id) }}">Delete</a>
+                                        href="{{ route('project.delete', $item->id) }}">Delete</a> --}}
                                 @endif
                             </div>
 

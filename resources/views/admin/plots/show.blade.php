@@ -53,7 +53,7 @@
                         <div class="row p-3">
                             @foreach ($sector->plot as $plot)
                                 <div style="color:white ;width:8rem;height:6rem"
-                                    class="col-2 m-1 {{ $plot->status == 'Sold' ? 'btn btn-success ' : ($plot->status == 'Resold' ? 'btn btn-danger' : 'btn btn-info') }}">
+                                    class="col-2 m-1 {{ $plot->status == 'Sold' ? 'btn btn-success ' : ($plot->status == 'Resold' ? 'btn btn-warning' : 'btn btn-danger') }}">
                                     {{ $plot->plotnumber }} ({{ $plot->area }})
                                     <br><br>
                                     @if ($plot->status == 'Unsold' || $plot->status == 'Resold')

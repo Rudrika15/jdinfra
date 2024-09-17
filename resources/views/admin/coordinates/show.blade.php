@@ -65,8 +65,10 @@
                     @endforeach
                 </tbody>
             </table>
+            {{-- {{ $coordinates->links() }} --}}
         @endif
     </div>
+
     <script>
         $(document).ready(function() {
             $('#data-table').DataTable(); // Initialize DataTable

@@ -12,15 +12,15 @@
                 @if (count($Contact) > 0)
                     <h2 class="text-white">VIEW CONTACT</h2>
                 @else
-                    <h2 class="text-white">THERE ARE CONTACTS</h2>
+                    <h2 class="text-white">THERE ARE NO CONTACTS</h2>
                 @endif
             </div>
-            @if (count($Contact) > 0)
-                <div class="col-lg-6 d-flex justify-content-end align-items-center">
-                    <a href="{{ route('contact.trash', request()->route('projectid')) }}" class="btn me-2"
-                        style="background-color: #e3f2fd">Go To Trash</a>
-                </div>
-            @endif
+
+            <div class="col-lg-6 d-flex justify-content-end align-items-center">
+                <a href="{{ route('contact.trash', request()->route('projectid')) }}" class="btn me-2"
+                    style="background-color: #e3f2fd">Go To Trash</a>
+            </div>
+
         </div>
         @if (count($Contact) > 0)
             <table class="table table-bordered  text-center">

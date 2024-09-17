@@ -161,8 +161,10 @@ class BookingController extends Controller
             'user_id' => $request->input('agent'),
             'trans_date' => $nextMonth,
             'paid_amount' => 0,
+            'total_paid_amt' => $request->booking_amount,
             'remain_amount' => $remainAmount,
             'new_emi_amount' => $remainAmount / $request->input('emi'),
+
             'emi' => $request->input('emi'),
             'status' =>  'Unpaid',
             'remarks' => $request->input('remarks'),
