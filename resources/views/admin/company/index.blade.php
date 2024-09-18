@@ -10,13 +10,13 @@
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-6">
-                <h2 class="text-white">
+                <h4 class="text-white">
                     @if (count($companys) > 0)
                         COMPANY DETAILES
                     @else
                         There is no company data
                     @endif
-                </h2>
+                </h4>
             </div>
             <div class="col-lg-6 d-flex justify-content-end align-items-center">
                 <span style="float:right;"><a href="{{ route('company.create', request()->route('projectid')) }}"

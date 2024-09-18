@@ -10,9 +10,9 @@
 
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-8">
-                <h2 class="text-white">{{ $plots->sector->project->title }} SECTOR {{ $plots->sector->sectorname }} OF PLOT
+                <h4 class="text-white">{{ $plots->sector->project->title }} SECTOR {{ $plots->sector->sectorname }} OF PLOT
                     {{ $plots->plotnumber }}
-                </h2>
+                </h4>
             </div>
             <div class="col-lg-4 d-flex justify-content-end align-items-center">
                 <div>

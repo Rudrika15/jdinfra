@@ -4,8 +4,8 @@
     <div class="container-fluid border border p-0 m-0">
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-8">
-                <h2 class="text-white">ADD NEW PLOT IN SECTOR {{ $sector->sectorname }} OF {{ $sector->project->title }}
-                </h2>
+                <h4 class="text-white">ADD NEW PLOT IN SECTOR {{ $sector->sectorname }} OF {{ $sector->project->title }}
+                </h4>
             </div>
             <div class="col-lg-4 d-flex justify-content-end align-items-center">
                 <span style="float:right; margin-right: 1%"><a href="{{ route('plot.index', $sector->projectid) }}"

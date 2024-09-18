@@ -10,7 +10,7 @@
 
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-6">
-                <h2 class="text-white">BOOKING DETAILS OF {{ $bookings->plot->sector->project->title }}</h2>
+                <h4 class="text-white">BOOKING DETAILS OF {{ $bookings->plot->sector->project->title }}</h4>
             </div>
 
             <div class="col-lg-6 d-flex justify-content-end align-items-center">
@@ -340,7 +340,7 @@
         <hr>
         <div class="container-fluid p-5">
 
-            <h2 class="text-center">Installment Details</h2>
+            <h4 class="text-center">Installment Details</h4>
 
             <br>
             <table class="table table-bordered text-center">

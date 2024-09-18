@@ -3,9 +3,9 @@
     <div class="container-fluid border border p-0 m-0">
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-9">
-                <h2 class="text-white">UPDATE &nbsp;-&nbsp; BOOKING OF {{ $booking->plot->sector->project->title }} SECTOR OF
+                <h4 class="text-white">UPDATE &nbsp;-&nbsp; BOOKING OF {{ $booking->plot->sector->project->title }} SECTOR OF
                     {{ $booking->plot->sector->sectorname }} PLOT
-                    {{ $booking->plot->plotnumber }}</h2>
+                    {{ $booking->plot->plotnumber }}</h4>
             </div>
             <div class="col-lg-3 d-flex justify-content-end align-items-center">
                 <span><a href="{{ route('admin.booking.viewbooking', $booking->plot->sector->project->id) }}" class="btn"

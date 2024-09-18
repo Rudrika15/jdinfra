@@ -3,7 +3,7 @@
     <div class="container-fluid  p-0 m-0">
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-6">
-                <h2 class="text-white">INSTALLMENTS DETAILES OF {{ $bookings->plot->sector->project->title }}</h2>
+                <h4 class="text-white">INSTALLMENTS DETAILES OF {{ $bookings->plot->sector->project->title }}</h4>
             </div>
             <div class="col-lg-6 d-flex justify-content-end align-items-center">
                 <span style="float: right">

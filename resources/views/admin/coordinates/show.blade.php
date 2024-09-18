@@ -4,7 +4,7 @@
     <div class="container-fluid border border p-5 m-0">
         <div class="row mb-3 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-6">
-                <h2 class="text-white">All Coordinates</h2>
+                <h4 class="text-white">All Coordinates</h4>
             </div>
             <div class="col-lg-6 d-flex justify-content-end align-items-center">
                 <span style="float:right; margin-right: 1%">
@@ -37,6 +37,10 @@
                         <th>Y3</th>
                         <th>X4</th>
                         <th>Y4</th>
+                        <th>X5</th>
+                        <th>Y5</th>
+                        <th>X6</th>
+                        <th>Y6</th>
                         <th>action</th>
                         <!-- Add more columns if needed -->
                     </tr>
@@ -55,6 +59,10 @@
                             <td>{{ $coordinate->y3 }}</td>
                             <td>{{ $coordinate->x4 }}</td>
                             <td>{{ $coordinate->y4 }}</td>
+                            <td>{{ $coordinate->x5 ?? '-' }}</td>
+                            <td>{{ $coordinate->y5 ?? '-' }}</td>
+                            <td>{{ $coordinate->x6 ?? '-' }}</td>
+                            <td>{{ $coordinate->y6 ?? '-' }}</td>
                             <td>
                                 <a href="{{ route('coordinate.edit', $coordinate->id) }}" class="btn btn-primary">Edit</a>
                                 <a href="{{ route('coordinate.delete', $coordinate->id) }}" class="btn btn-danger"
@@ -65,7 +73,6 @@
                     @endforeach
                 </tbody>
             </table>
-            {{-- {{ $coordinates->links() }} --}}
         @endif
     </div>
 

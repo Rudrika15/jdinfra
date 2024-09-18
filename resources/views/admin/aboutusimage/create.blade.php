@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="p-3">
-            <h2 class="text-center">Add Aboutusimage Image</h2>
+            <h4 class="text-center">Add Aboutusimage Image</h4>
             <span style="float:right; margin-right: 1%"><a href="{{ route('topbar.index') }}"
                     class="btn btn-primary">Back</a></span>
         </div>

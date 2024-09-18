@@ -4,7 +4,7 @@
     <div class="container-fluid border border p-0 m-0">
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-6">
-                <h2 class="text-white">UPDATE &nbsp;-&nbsp; YOUTUBE SLIDER URL</h2>
+                <h4 class="text-white">UPDATE &nbsp;-&nbsp; YOUTUBE SLIDER URL</h4>
             </div>
             <div class="col-lg-6 d-flex justify-content-end align-items-center">
                 <span style="float:right"><a href="{{ route('topbar.index') }}" class="btn"
@@ -19,11 +19,11 @@
                     <label for="youtubeurl" class="form-label">Youtube URL</label>
                     <input type="text" name="youtubeurl" class="form-control" id="youtubeurl"
                         value="{{ $youtube->youtubeurl }}">
-                        <span class="text-danger">
-                            @error('youtubeurl')
-                                {{ $message }}
-                            @enderror
-                        </span>
+                    <span class="text-danger">
+                        @error('youtubeurl')
+                            {{ $message }}
+                        @enderror
+                    </span>
                 </div>
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary shadow-none">Update</button>

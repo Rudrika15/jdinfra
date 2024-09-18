@@ -4,7 +4,7 @@
     <div class="container-fluid border border p-0 m-0">
         <div class="row m-0 p-3" style="background-color: #0b6ab2">
             <div class="col-lg-8">
-                <h2 class="text-white">UPDATE &nbsp;-&nbsp; PROJECT GALLERY OF {{ $galleries->project->title }} UPDATE</h2>
+                <h4 class="text-white">UPDATE &nbsp;-&nbsp; PROJECT GALLERY OF {{ $galleries->project->title }} UPDATE</h4>
             </div>
             <div class="col-lg-4 d-flex justify-content-end align-items-center">
                 <span style="float:right"><button style="float:right;background-color: #e3f2fd" onclick="history.back()"

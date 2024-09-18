@@ -12,7 +12,7 @@
 
                 <span>Plot master</span>
                 <span style="float:right"><a href="{{ route('plot.create', request()->route('sectormasterid')) }}"
-                        class="btn btn-outline-primary">sssAdd New
+                        class="btn btn-outline-primary">Add New
                         Plot</a></span>
 
             </div>
