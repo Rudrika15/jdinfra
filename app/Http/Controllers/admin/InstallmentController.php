@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Agentcommission;
 use App\Models\Booking;
+use App\Models\Coordinate;
 use App\Models\Installment;
+use App\Models\Plotmaster;
 use App\Models\Project;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -161,6 +163,8 @@ class InstallmentController extends Controller
     public function update(Request $request, $id)
     {
         $installment = Installment::find($id);
+        $plotId = $installment->booking->plot;
+
         $total_paid_amt = $installment->total_paid_amt + $request->paid_amount;
         $request->validate([
             'booking_id' => 'required',
@@ -182,6 +186,16 @@ class InstallmentController extends Controller
 
         // Check if remain amount is zero and set status accordingly
         $status = ($remainAmount == 0) ? 'Completed' : 'Unpaid';
+
+        if ($remainAmount == 0) {
+            $plot = Plotmaster::where('id', $plotId->id)->update(['status' => 'Sold']);
+            $coordinates = Coordinate::where('plot_id', $plotId->plotnumber)
+                ->where('sector_name', $plotId->sector->sectorname)
+                ->where('projectid', $plotId->sector->projectid)
+                ->first();
+            $coordinates->book_status = 'Sold';
+            $coordinates->save();
+        }
 
         // Calculate next installment details
         $editedTransDate = Carbon::parse($installment->trans_date);

@@ -100,6 +100,8 @@
 
                 if (book_status == "Sold") {
                     ctx.fillStyle = "rgba(0, 255, 0, 0.5)";
+                } else if (book_status == 'Hold') {
+                    ctx.fillStyle = 'rgba(255, 255, 0, 0.5)';
                 } else {
                     ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
                 }

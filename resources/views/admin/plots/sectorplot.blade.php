@@ -59,7 +59,7 @@
                         @enderror
                     </span>
                 </div>
-                <div class="mb-3 col-4">
+                {{-- <div class="mb-3 col-4">
                     <label for="status" class="form-label">Status</label>
                     <select class="form-control" name="status">
                         <option value="Unsold">Unsold</option>
@@ -71,7 +71,7 @@
                             {{ $message }}
                         @enderror
                     </span>
-                </div>
+                </div> --}}
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary shadow-none">Submit</button>
                 </div>

@@ -28,7 +28,7 @@
                         @enderror
                     </span>
                 </div>
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="status" class="form-label">Status</label>
                     <select class="form-control" name="status">
                         <option value="Sold" {{ $plotmaster->status == 'Sold' ? 'selected' : '' }}>Sold</option>
@@ -40,7 +40,7 @@
                             {{ $message }}
                         @enderror
                     </span>
-                </div>
+                </div> --}}
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-primary shadow-none">Update</button>
                 </div>

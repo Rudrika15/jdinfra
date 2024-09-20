@@ -49,7 +49,7 @@ class PlotmasterController extends Controller
         return view('admin.plots.trash', compact('plots', 'project'));
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -78,8 +78,7 @@ class PlotmasterController extends Controller
             'sectormasterid' => 'required|exists:sectormasters,id',
             'strt' => 'required|numeric',
             'end' => 'required|numeric|gte:strt',
-            'area'  => 'required',
-            'status'  => 'required',
+            'area'  => 'required'
         ]);
 
         $sectormasterid = $request->input('sectormasterid');
@@ -102,7 +101,7 @@ class PlotmasterController extends Controller
             }
             $input = $request->all();
             $input['plotnumber'] = $i;
-            $project =  Plotmaster::create($input);
+            $project =  Plotmaster::create($input + ['status' => 'Unsold']);
         }
 
         return redirect()->route('sector.index', $project->sector->projectid)
@@ -115,7 +114,6 @@ class PlotmasterController extends Controller
             'strt' => 'required|numeric',
             'end' => 'required|numeric|gte:strt',
             'area'  => 'required',
-            'status'  => 'required',
         ]);
 
         $sectormasterid = $request->input('sectormasterid');
@@ -138,7 +136,7 @@ class PlotmasterController extends Controller
             }
             $input = $request->all();
             $input['plotnumber'] = $i;
-            $project =  Plotmaster::create($input);
+            $project =  Plotmaster::create($input + ['status' => 'Unsold']);
         }
 
         return redirect()->route('plot.index', $project->sector->projectid)
@@ -175,12 +173,11 @@ class PlotmasterController extends Controller
             // 'sectormasterid' => 'required',
             // 'plotnumber'  => 'required',
             'area'  => 'required',
-            'status'  => 'required',
         ]);
 
         $input = $request->all();
 
-        $plotmaster->update($input);
+        $plotmaster->update($input + ['status' => 'Unsold']);
         return redirect()->route('plot.index', $plotmaster->sector->projectid)
             ->with('success', 'Sector ' . $plotmaster->sector->sectorname . ' Plot no ' . $plotmaster->plotnumber . ' data updated successfully
             ');
@@ -190,7 +187,7 @@ class PlotmasterController extends Controller
     {
         // Retrieve the plot by ID
         $plot = Plotmaster::findOrFail($id);
-        
+
         // Check if soft deletes are enabled
         if (Schema::hasColumn($plot->getTable(), 'deleted_at')) {
             // Soft delete the plot
@@ -207,15 +204,15 @@ class PlotmasterController extends Controller
     {
         // Retrieve the plot by ID (including soft deleted plots)
         $plot = Plotmaster::withTrashed()->findOrFail($id);
-        
+
         // Check if the plot is soft deleted
         if ($plot->trashed()) {
             // Restore the soft deleted plot
             $plot->restore();
-            
+
             // Ensure the plot's sector relationship is correct after restoration
             $sector = $plot->sector; // Retrieve the associated sector
-            
+
             return redirect()->back()->with('success', 'Plot restored successfully');
         } else {
             // Plot is not soft deleted, return with an error message
@@ -226,7 +223,7 @@ class PlotmasterController extends Controller
     {
         // Retrieve the plot by ID
         $plot = Plotmaster::withTrashed()->findOrFail($id);
-        
+
         // Check if soft deletes are enabled
         if (Schema::hasColumn($plot->getTable(), 'deleted_at')) {
             // Soft delete the plot
@@ -248,21 +245,21 @@ class PlotmasterController extends Controller
         // return $history->plotid;
         // return $history;
 
-        return \view('admin.plots.plotdetails', \compact('history'));   
+        return \view('admin.plots.plotdetails', \compact('history'));
     }
 
     public function resold($id)
     {
-    
+
         // Find the booking record by ID
         $booking = Booking::findOrFail($id);
-    
+
         // Move the booking to history_bookings table and delete from bookings table
         $booking->move(HistoryBooking::class);
         $pid = $booking->plotid;
         $plot = Plotmaster::find($pid);
-    
-    
+
+
         $plot->status = 'Resold';
         $plot->save();
         return redirect()->route('admin.booking.viewbooking', $booking->plot->sector->project->id)
@@ -271,11 +268,11 @@ class PlotmasterController extends Controller
 
     public function resoldshow(Request $request, $id = 0)
     {
-       
-        $history= HistoryBooking::whereHas('plot', function ($query) {
+
+        $history = HistoryBooking::whereHas('plot', function ($query) {
             $query->where('status', 'Resold');
         })->get();
-           
+
 
         return view('admin.plots.resold', compact('history'));
     }

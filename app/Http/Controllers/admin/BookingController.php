@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Client;
+use App\Models\Coordinate;
 use App\Models\Editor;
 use App\Models\Installment;
 use App\Models\Plotmaster;
@@ -149,8 +150,15 @@ class BookingController extends Controller
         // return $input;
 
         $plot = Plotmaster::find($request->plotid);
-        $plot->status = 'Sold';
+        $plot->status = 'Hold';
         $plot->save();
+
+        $coordinates = Coordinate::where('plot_id', $request->plotnumber)
+            ->where('sector_name', $plot->sector->sectorname)
+            ->where('projectid', $plot->sector->projectid)
+            ->first();
+        $coordinates->book_status = 'Hold';
+        $coordinates->save();
 
         $booking =  Booking::create($input);
         $remainAmount = $request->input('sell_amount') - $request->input('booking_amount');
@@ -164,7 +172,6 @@ class BookingController extends Controller
             'total_paid_amt' => $request->booking_amount,
             'remain_amount' => $remainAmount,
             'new_emi_amount' => $remainAmount / $request->input('emi'),
-
             'emi' => $request->input('emi'),
             'status' =>  'Unpaid',
             'remarks' => $request->input('remarks'),
