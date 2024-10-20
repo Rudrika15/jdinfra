@@ -330,6 +330,7 @@
                             <th>Agent Name</th>
                         @endif
                         <th>Transaction Date</th>
+                        <th>Booking Amount</th>
                         <th>Paid Amount</th>
                         <th>Remain Amount</th>
                         <th>New EMI Amount</th>
@@ -345,35 +346,46 @@
                         $totalUnpaidRemainAmount = 0; // Initialize the variable to hold the total remain amount for Unpaid status
                     @endphp
                     @foreach ($history->installment as $item)
-                        @if ($item->status == 'Paid')
-                            {{-- Display installment for "Paid" status --}}
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                @if (Auth::user()->usertype == 'admin')
-                                    <td>{{ $item->user->name }}</td>
-                                @endif
-                                <td>{{ $item->trans_date }}</td>
-                                <td>{{ $item->paid_amount }}</td>
-                                <td>{{ $item->remain_amount }}</td>
-                                <td>{{ $item->new_emi_amount }}</td>
-                                <td>{{ $item->emi }}</td>
-                                <td>{{ $item->installment_no }}</td>
-                                <td>{{ $item->status }}</td>
-                                <td>{{ $item->remarks }}</td>
-                                @php
-                                    $totalPaidAmount += $item->paid_amount; // Add current paid amount to the total
-                                @endphp
-                            </tr>
-                        @elseif ($item->status == 'Unpaid')
-                            {{-- Calculate total remain amount for "Unpaid" status --}}
+                        {{-- @if ($item->status == 'Paid') --}}
+                        {{-- Display installment for "Paid" status --}}
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            @if (Auth::user()->usertype == 'admin')
+                                <td>{{ $item->user->name }}</td>
+                            @endif
+                            <td>{{ $item->trans_date }}</td>
+                            <td>{{ $history->booking_amount }}</td>
+                            <td>{{ $item->paid_amount }}</td>
+                            <td>{{ $item->remain_amount }}</td>
+                            <td>{{ $item->new_emi_amount }}</td>
+                            <td>{{ $item->emi }}</td>
+                            <td>{{ $item->installment_no }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>{{ $item->remarks }}</td>
+
                             @php
-                                $totalUnpaidRemainAmount += $item->remain_amount; // Add current remain amount to the total for Unpaid status
+                                $totalPaidAmount += $item->paid_amount;
+                                // Add current paid amount to the total
                             @endphp
-                        @endif
+                        </tr>
+                        {{-- @elseif ($item->status == 'Unpaid') --}}
+                        {{-- Calculate total remain amount for "Unpaid" status --}}
+                        @php
+                            $totalUnpaidRemainAmount += $item->remain_amount; // Add current remain amount to the total for Unpaid status
+                        @endphp
+                        {{-- @endif --}}
                     @endforeach
+                    @php
+                        $booking_amt = $history->booking_amount;
+                    @endphp
                     <tr>
                         <td colspan="3">Total Paid Amount (Status: Paid):</td>
-                        <td>{{ $totalPaidAmount }}</td>
+                        @if ($history->status = 'Paid')
+                            <td>{{ $totalPaidAmount + $booking_amt }}</td>
+                        @else
+                            <td>{{ $totalPaidAmount }}</td>
+                        @endif
+
                         <td colspan="6"></td>
                     </tr>
                     <tr>

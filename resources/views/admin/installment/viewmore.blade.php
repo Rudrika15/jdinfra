@@ -20,6 +20,7 @@
                     <th>Full Name</th>
                     <th>Agent Name</th>
                     <th>Transaction Date</th>
+                    <th>Booking Amount</th>
                     <th>Total Paid Amount</th>
                     <th>Remain Amount</th>
                     <th>New EMI Amount</th>
@@ -40,6 +41,7 @@
                     <td>{{ $item->booking->fullname }}</td>
                     <td>{{ $item->user->name }}</td>
                     <td>{{ $item->trans_date }}</td>
+                    <td>{{ $item->booking->booking_amount }}</td>
                     <td>{{ $item->paid_amount }}</td>
                     <td>{{ $item->remain_amount }}</td>
                     <td>{{ $item->new_emi_amount }}</td>
@@ -49,7 +51,7 @@
                     @else
                         <td>{{ $item->installment_no }}</td>
                     @endif
-                    <td>{{$item->given_by}}</td>
+                    <td>{{ $item->given_by }}</td>
                     <td>{{ $item->status }}</td>
                     <td>{{ $item->remarks }}</td>
                     <td>

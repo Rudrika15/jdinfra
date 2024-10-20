@@ -38,7 +38,7 @@
                         @endforeach  --}}
                         <td>
 
-                            <a class="btn btn-outline-primary" href="{{ route('plot.edit', $item->id) }}">Edit</a>
+                            {{-- <a class="btn btn-outline-primary" href="{{ route('plot.edit', $item->id) }}">Edit</a> --}}
                             <a onclick="return confirm('do you want to delete it?')" class="btn btn-outline-danger"
                                 href="{{ route('plot.delete', $item->id) }}">Delete</a>
                         </td>

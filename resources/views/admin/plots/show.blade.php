@@ -61,8 +61,8 @@
                                                 style="color:white"></i></a>
                                     @endif
                                     @if (Auth::user()->usertype == 'admin')
-                                        <a href="{{ route('plot.edit', $plot->id) }}"><i class="fas fa-edit"
-                                                style="color:white"></i></a>
+                                        {{-- <a href="{{ route('plot.edit', $plot->id) }}"><i class="fas fa-edit"
+                                                style="color:white"></i></a> --}}
                                         <a onclick="return confirm('do you want to delete it?')"
                                             href="{{ route('plot.delete', $plot->id) }}"><i class="fas fa-trash"
                                                 style="color:white"></i></a>

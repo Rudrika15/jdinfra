@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agentcommission;
 use App\Models\Booking;
 use App\Models\Client;
 use App\Models\Coordinate;
@@ -30,7 +31,7 @@ class BookingController extends Controller
             $query = Booking::with('plot.sector.project', 'user')
                 ->whereHas('plot.sector.project', function ($query) use ($id) {
                     $query->where('id', $id)
-                        ->where('status', 'Sold');
+                        ->where('status', 'Hold');
                 })
                 ->whereNotNull('agent_commisson')
                 ->select('*');
@@ -168,7 +169,7 @@ class BookingController extends Controller
             'booking_id' => $booking->id,
             'user_id' => $request->input('agent'),
             'trans_date' => $nextMonth,
-            'paid_amount' => 0,
+            'paid_amount' => $request->booking_amount,
             'total_paid_amt' => $request->booking_amount,
             'remain_amount' => $remainAmount,
             'new_emi_amount' => $remainAmount / $request->input('emi'),
@@ -180,6 +181,15 @@ class BookingController extends Controller
         $installment = new Installment($installmentdata);
         $installment->user_id = $request->agent;
         $installment->save();
+
+        $bookings = $installment->booking;
+        $agentcommission = $request->input('booking_amount') * $bookings->agent_commisson  / 100;
+
+        $ac = Agentcommission::create([
+            'installment_id' => $installment->id,
+            'agent_commission' => $agentcommission,
+            'paid_agentcommission' => 0,
+        ]);
 
         return redirect()->route('admin.booking.viewbooking', $installment->booking->plot->sector->project->id)
             ->with('success', 'booking data added successfully');

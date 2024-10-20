@@ -353,6 +353,7 @@
                         @endif
 
                         <th>Next Installment Date</th>
+                        <th>Booking Amt</th>
                         <th>Paid Amt</th>
                         <th>Remaining Amt</th>
                         <th>Next Emi Amount</th>
@@ -375,6 +376,7 @@
                             <td>{{ $item->user->name }}</td>
                         @endif
                         <td>{{ $item->trans_date }}</td>
+                        <td>{{ $item->booking->booking_amount }}</td>
                         <td>{{ $item->paid_amount }}</td>
                         <td>{{ $item->remain_amount }}</td>
                         <td>{{ $item->new_emi_amount }}</td>
