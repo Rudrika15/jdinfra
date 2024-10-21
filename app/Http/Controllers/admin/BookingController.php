@@ -158,8 +158,11 @@ class BookingController extends Controller
             ->where('sector_name', $plot->sector->sectorname)
             ->where('projectid', $plot->sector->projectid)
             ->first();
-        $coordinates->book_status = 'Hold';
-        $coordinates->save();
+
+        if ($coordinates) {
+            $coordinates->book_status = 'Hold';
+            $coordinates->save();
+        }
 
         $booking =  Booking::create($input);
         $remainAmount = $request->input('sell_amount') - $request->input('booking_amount');
@@ -197,9 +200,8 @@ class BookingController extends Controller
     public function edit(Request $request, $id)
     {
         $booking = Booking::find($id);
-
-        $plots = Plotmaster::find($id);
-        $users = User::where('usertype', 'Agent')->whereNull('status')->get();
+        $plots   = Plotmaster::find($id);
+        $users   = User::where('usertype', 'Agent')->whereNull('status')->get();
         return \view('admin.booking.edit', \compact('booking', 'plots', 'users'));
     }
     public function update(Request $request, Booking $booking)
@@ -242,6 +244,10 @@ class BookingController extends Controller
     public function delete($id)
     {
         $booking = Booking::find($id);
+        // $booking->plot;
+        $coordinate = Coordinate::where('plot_id', $booking->plotnumber)
+            ->where('sector_name', $booking->plot->sector->sectorname)
+            ->where('projectid', $booking->plot->sector->projectid)->first();
 
         if (!$booking) {
             return redirect()->back()->with('success', 'Booking not found');
@@ -253,6 +259,10 @@ class BookingController extends Controller
         // Change the status of the plot to "Unsold"
         $plot->status = 'Unsold';
         $plot->save();
+
+        $coordinate->book_status = 'Unsold';
+        $coordinate->save();
+        // return $coordinate;
 
         // Soft delete the booking
         $booking->delete();
@@ -263,7 +273,10 @@ class BookingController extends Controller
     public function restore($id)
     {
         $booking = Booking::withTrashed()->find($id);
-
+        $projectid = $booking->plot->sector->projectid;
+        $coordinate = Coordinate::where('plot_id', $booking->plotnumber)
+            ->where('sector_name', $booking->plot->sector->sectorname)
+            ->where('projectid', $booking->plot->sector->projectid)->first();
 
         if (!$booking) {
             return redirect()->back()->with('success', 'Booking not found');
@@ -273,18 +286,19 @@ class BookingController extends Controller
         $plot = $booking->plot;
 
         // Change the status of the plot to "Unsold"
-        $plot->status = 'sold';
+        $plot->status = 'Hold';
         $plot->save();
 
+        $coordinate->book_status = 'Hold';
+        $coordinate->save();
         // Soft delete the booking
         $booking->restore();
 
-        return redirect()->back()->with('success', 'Booking restored successfully');
+        return redirect()->route('admin.booking.viewbooking', $projectid)->with('success', 'Booking restored successfully');
     }
     public function destroy($id)
     {
         $booking = Booking::withTrashed()->find($id);
-
         if (!$booking) {
             return redirect()->back()->with('success', 'Booking not found');
         }
@@ -295,6 +309,7 @@ class BookingController extends Controller
         // Change the status of the plot to "Unsold"
         $plot->status = 'Unsold';
         $plot->save();
+
 
         // Soft delete the booking
         $booking->forceDelete();
@@ -334,7 +349,7 @@ class BookingController extends Controller
                     // Check if the user type is 'admin' before adding 'Edit' and 'Delete' buttons
                     if ($user->usertype == 'admin') {
                         $edit = '<a  href="/admin/booking/restore/' . $row->id . '" class="edit btn btn-primary shadow-none btn-sm mb-2" onclick="return confirm(\'do you want to restore it\')"> Restore</a>';
-                        $delete = '<a href="/admin/booking/delete/' . $row->id . '" class="delete-client btn btn-danger shadow-none btn-sm mb-2" onclick="return confirm(\'Do you want to permanently delete it?\')"> Delete</a>';
+                        $delete = '<a href="/admin/booking/destroy/' . $row->id . '" class="delete-client btn btn-danger shadow-none btn-sm mb-2" onclick="return confirm(\'Do you want to permanently delete it?\')"> Delete</a>';
 
                         // Add 'Edit' and 'Delete' buttons to the $btn variable
                         return $edit . ' ' . $delete;

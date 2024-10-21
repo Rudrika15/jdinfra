@@ -10,7 +10,7 @@ class Coordinate extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable  =[
+    protected $fillable  = [
         'projectid',
         'sector_name',
         'plot_id',
@@ -25,6 +25,7 @@ class Coordinate extends Model
         'x5',
         'y5',
         'x6',
-        'y6'
+        'y6',
+        'book_status',
     ];
 }
